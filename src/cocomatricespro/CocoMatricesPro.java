@@ -6,8 +6,8 @@
 package cocomatricespro;
 import java.util.Scanner;
 /**
- * Suma
- * Resta
+ * Suma * 
+ * Resta * 
  * Multiplicación
  * Transpuesta
  * Inversa
@@ -39,6 +39,9 @@ public class CocoMatricesPro {
                 case 2:
                     resta();
                     break;
+                case 4:
+                    transpuesta();
+                    break;
                 case 7:
                     System.out.println("¡Gracias!");
                     break;
@@ -48,8 +51,8 @@ public class CocoMatricesPro {
             }
             if(menu!=7)
             {
-                System.out.print("Presione una tecla para continuar");
-                input.nextLine();
+                System.out.print("Presione una tecla y emter para continuar");
+                input.next();
             }
         }while(menu!=7);
     }
@@ -70,7 +73,7 @@ public class CocoMatricesPro {
     
     public static void suma()
     {
-        System.out.print("Escriba las dimensiones de la matriz a sumar\nFilas: ");
+        System.out.print("Escriba las dimensiones de las matrices a sumar\nFilas: ");
         int rows = input.nextInt();
         System.out.print("Columnas: ");
         int cols = input.nextInt();
@@ -91,7 +94,7 @@ public class CocoMatricesPro {
     public static void resta()
     {
         
-        System.out.print("Escriba las dimensiones de la matriz a restar\nFilas: ");
+        System.out.print("Escriba las dimensiones de las matrices a restar\nFilas: ");
         int rows = input.nextInt();
         System.out.print("Columnas: ");
         int cols = input.nextInt();
@@ -107,5 +110,17 @@ public class CocoMatricesPro {
         {
             matrix3.printMatrix();
         }
+    }
+    public static void transpuesta()
+    {
+        System.out.print("Ingrese las dimensiones de la matriz a transponer\nFilas: ");
+        int rows = input.nextInt();
+        System.out.print("Columnas: ");
+        int cols = input.nextInt();
+        Matrix matrix = new Matrix(askMatrix(rows,cols));
+        matrix.printMatrix();
+        System.out.println("        MT= ");
+        Matrix transpuesta = matrix.getTransposed();
+        transpuesta.printMatrix();
     }
 }
