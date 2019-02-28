@@ -48,8 +48,8 @@ public class CocoMatricesPro {
             }
             if(menu!=7)
             {
-                System.out.println("Presione una tecla para continuar");
-                input.next();
+                System.out.print("Presione una tecla para continuar");
+                input.nextLine();
             }
         }while(menu!=7);
     }
