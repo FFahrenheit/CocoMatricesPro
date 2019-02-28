@@ -12,13 +12,17 @@ package cocomatricespro;
  */
 public class Matrix 
 {
-    private int rowCount;
+    public int rowCount;
     private int columnCount;
     public Double[][] matrix;
     /**
      * Constructor vacío.
      */
-    Matrix(){}
+    Matrix()
+    {
+        rowCount = 0;
+        columnCount = 0;
+    }
     
     /**
      * Constructor que inicializa las dimensiones
@@ -102,20 +106,20 @@ public class Matrix
      */
     public Matrix add(Matrix m1, Matrix m2)
     {
-        if(m1.matrix.length == m2.matrix.length && 
-        m1.matrix[0].length == m2.matrix[0].length)
+        if(m1.rowCount == m2.rowCount && 
+        m1.columnCount == m2.columnCount)
         {
-            Matrix ans = new Matrix(m1.matrix.length,m1.matrix[0].length);
-            for (int i = 0; i < m1.matrix.length; i++) 
+            Matrix ans = new Matrix(m1.rowCount,m1.columnCount);
+            for (int i = 0; i < m1.rowCount; i++) 
             {
-                for (int j = 0; j < m1.matrix[0].length; j++) 
+                for (int j = 0; j < m1.columnCount; j++) 
                 {
                     ans.setMember((m1.matrix[i][j]+m2.matrix[i][j]), i, j);
                 }
             }
             return ans;
         }
-        return new Matrix(0,0);
+        return new Matrix();
     }
     
      /**
@@ -126,20 +130,20 @@ public class Matrix
      */
     public Matrix subtract(Matrix m1, Matrix m2)
     {
-        if(m1.matrix.length == m2.matrix.length && 
-        m1.matrix[0].length == m2.matrix[0].length)
+        if(m1.rowCount == m2.rowCount && 
+        m1.columnCount == m2.columnCount)
         {
-            Matrix ans = new Matrix(m1.matrix.length,m1.matrix[0].length);
-            for (int i = 0; i < m1.matrix.length; i++) 
+            Matrix ans = new Matrix(m1.rowCount,m1.columnCount);
+            for (int i = 0; i < m1.rowCount; i++) 
             {
-                for (int j = 0; j < m1.matrix[0].length; j++) 
+                for (int j = 0; j < m1.columnCount; j++) 
                 {
                     ans.setMember((m1.matrix[i][j]-m2.matrix[i][j]), i, j);
                 }
             }
             return ans;
         }
-        return new Matrix(0,0);
+        return new Matrix();
     }
     
     /**
@@ -157,5 +161,27 @@ public class Matrix
             }
         }
         return ans;
+    }
+    
+    public Matrix dotProduct(Matrix m1, Matrix m2)
+    {
+        if(m1.rowCount==m2.columnCount)
+        {
+            Matrix ans = new Matrix(m1.rowCount, m2.columnCount);
+            for(int i=0; i<m1.rowCount;i++)
+            {
+                for (int j = 0; j < m2.columnCount; j++) 
+                {
+                    Double acum = 0.0;
+                    for(int k=0; k<m1.columnCount; k++)
+                    {
+                        acum+= m1.matrix[i][k] * m2.matrix[k][j];
+                    }
+                    ans.setMember(acum, i, j);
+                }
+            }
+            return ans;
+        }
+        return new Matrix();
     }
 }

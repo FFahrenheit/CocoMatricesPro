@@ -9,7 +9,7 @@ import java.util.Scanner;
  * Suma * 
  * Resta * 
  * Multiplicación
- * Transpuesta
+ * Transpuesta *
  * Inversa
  * Determinante
  * @author ivxn
@@ -38,6 +38,9 @@ public class CocoMatricesPro {
                     break;
                 case 2:
                     resta();
+                    break;
+                case 3:
+                    multiplicacion();
                     break;
                 case 4:
                     transpuesta();
@@ -85,9 +88,13 @@ public class CocoMatricesPro {
         Matrix matrix3 = new Matrix();
         System.out.println("        =");
         matrix3 = matrix3.add(matrix1,matrix2);
-        if(matrix3.matrix.length>0)
+        if(matrix3.rowCount>0)
         {
             matrix3.printMatrix();
+        }
+        else
+        {
+            System.out.println("No se pueden sumar matrices de distinto tamaño");
         }
     }
     
@@ -106,9 +113,13 @@ public class CocoMatricesPro {
         Matrix matrix3 = new Matrix();
         System.out.println("        =");
         matrix3 = matrix3.subtract(matrix1,matrix2);
-        if(matrix3.matrix.length>0)
+        if(matrix3.rowCount>0)
         {
             matrix3.printMatrix();
+        }
+        else
+        {
+            System.out.println("No se pueden restar matrices de distinto tamaño");
         }
     }
     public static void transpuesta()
@@ -122,5 +133,32 @@ public class CocoMatricesPro {
         System.out.println("        MT= ");
         Matrix transpuesta = matrix.getTransposed();
         transpuesta.printMatrix();
+    }
+    
+    public static void multiplicacion()
+    {
+        System.out.print("Ingrese las dimensiones de la matriz 1 a multiplicar\nFilas: ");
+        int rows = input.nextInt();
+        System.out.print("Columnas: ");
+        int cols = input.nextInt();
+        Matrix m1 = new Matrix(askMatrix(rows,cols));
+        System.out.print("Ingrese las dimensiones de la matriz 2 a multiplicar\nFilas: ");
+        rows = input.nextInt();
+        System.out.print("Columnas: ");
+        cols = input.nextInt();
+        Matrix m2 = new Matrix(askMatrix(rows, cols));
+        Matrix m3 = m1.dotProduct(m1, m2);
+        m1.printMatrix();
+        System.out.println("        *");
+        m2.printMatrix();
+        if(m3.rowCount>0)
+        {
+            System.out.println("        =");
+            m3.printMatrix();
+        }
+        else
+        {
+            System.out.println("Matrices no compatibles");
+        }
     }
 }
