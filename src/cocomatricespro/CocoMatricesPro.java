@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * Suma * 
  * Resta * 
- * Multiplicación
+ * Multiplicación *
  * Transpuesta *
  * Inversa
  * Determinante
@@ -44,6 +44,9 @@ public class CocoMatricesPro {
                     break;
                 case 4:
                     transpuesta();
+                    break;
+                case 6:
+                    determinante();
                     break;
                 case 7:
                     System.out.println("¡Gracias!");
@@ -88,7 +91,7 @@ public class CocoMatricesPro {
         Matrix matrix3 = new Matrix();
         System.out.println("        =");
         matrix3 = matrix3.add(matrix1,matrix2);
-        if(matrix3.rowCount>0)
+        if(matrix3.isVoid())
         {
             matrix3.printMatrix();
         }
@@ -113,7 +116,7 @@ public class CocoMatricesPro {
         Matrix matrix3 = new Matrix();
         System.out.println("        =");
         matrix3 = matrix3.subtract(matrix1,matrix2);
-        if(matrix3.rowCount>0)
+        if(!!!matrix3.isVoid())
         {
             matrix3.printMatrix();
         }
@@ -151,7 +154,7 @@ public class CocoMatricesPro {
         m1.printMatrix();
         System.out.println("        *");
         m2.printMatrix();
-        if(m3.rowCount>0)
+        if(!!!m3.isVoid())
         {
             System.out.println("        =");
             m3.printMatrix();
@@ -160,5 +163,18 @@ public class CocoMatricesPro {
         {
             System.out.println("Matrices no compatibles");
         }
+    }
+    public static void determinante()
+    {
+        System.out.print("Ingrese las dimensiones de la matriz a obtener determinante\nFilas y columnas: ");
+        int rows = input.nextInt();
+        Double[][] test = new Double[][] {{1.0,7.0,8.0,9.0,4.0},{2.0,5.0,6.0,1.0,2.0},
+            {3.0,3.0,4.0,5.0,6.0},{4.0,7.0,8.0,9.0,0.0},
+                {1.0,2.0,3.0,4.0,5.0}
+        };
+        Matrix m1 = new Matrix(/*askMatrix(rows,rows)*/test);
+        double det = m1.getDeterminant(m1); 
+        m1.printMatrix();
+        System.out.println("El determinante de la matriz es: "+det);
     }
 }

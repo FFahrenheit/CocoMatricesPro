@@ -13,7 +13,7 @@ package cocomatricespro;
 public class Matrix 
 {
     public int rowCount;
-    private int columnCount;
+    public int columnCount;
     public Double[][] matrix;
     /**
      * Constructor vacío.
@@ -24,6 +24,36 @@ public class Matrix
         columnCount = 0;
     }
     
+    /**
+     * Genera una matrix de tamaño (n-1)(n-1) basado en 
+     * otra matriz y un pivote
+     * @param _m La matriz de tamaño n*n
+     * @param pivRow Ubicación en fila del pivote.
+     * @param pivCol  Ubicación en columna dek pivote.
+     */
+    Matrix(Matrix _m, int pivRow, int pivCol)
+    {
+        int rows=0, cols=0;
+        rowCount = _m.rowCount-1;
+        columnCount = _m.columnCount-1;
+        matrix = new Double[rowCount][columnCount];
+        for (int i = 0; i < _m.rowCount; i++) 
+        {
+            cols = 0;
+            for (int j = 0; j < _m.columnCount; j++) 
+            {
+                if(i!=pivRow && j!=pivCol)
+                {
+                    this.matrix[rows][cols] = _m.matrix[i][j];
+                    cols++;
+                }
+            }
+            if(i!=pivRow)
+            {
+                rows++;
+            }
+        }
+    }
     /**
      * Constructor que inicializa las dimensiones
      * @param _rowCount numero de filas
@@ -163,6 +193,12 @@ public class Matrix
         return ans;
     }
     
+    /**
+     * Devuelve la multiplicación de una matriz1 x matriz1 
+     * @param m1 matriz 1
+     * @param m2 matriz 2
+     * @return  matriz1*matriz2 si aplica, sino matriz de 0x0
+     */
     public Matrix dotProduct(Matrix m1, Matrix m2)
     {
         if(m1.rowCount==m2.columnCount)
@@ -183,5 +219,38 @@ public class Matrix
             return ans;
         }
         return new Matrix();
+    }
+    
+    public boolean isVoid()
+    {
+        return rowCount==0;
+    }
+    
+    public double getDeterminant(Matrix _m)
+    {
+        if(_m.rowCount==1 && _m.rowCount==_m.columnCount)
+        {
+            return _m.matrix[0][0];
+        }
+        else if(_m.rowCount==2 && _m.rowCount == _m.columnCount)
+        {
+            return _m.matrix[0][0] * _m.matrix[1][1] - _m.matrix[0][1] * _m.matrix[1][0];
+        }
+        else if(_m.rowCount == _m.columnCount)
+        {
+            Double acumulate = 0.0;
+            for(int i=0; i<_m.rowCount; i++)
+            {
+                Double sign=1.0;
+                if(i%2!=0)
+                {
+                    sign = -1.0; //Si el rowCount es impar Y el pivote está en posición 
+                }
+                Matrix _temp = new Matrix(_m,0,i);
+                acumulate += (sign * _m.matrix[0][i] * getDeterminant(_temp));
+            }
+            return acumulate;
+        }
+        return 0;
     }
 }
