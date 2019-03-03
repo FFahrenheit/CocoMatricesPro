@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Multiplicación *
  * Transpuesta *
  * Inversa
- * Determinante
+ * Determinante *
  * @author ivxn
  */
 public class CocoMatricesPro {
@@ -168,11 +168,7 @@ public class CocoMatricesPro {
     {
         System.out.print("Ingrese las dimensiones de la matriz a obtener determinante\nFilas y columnas: ");
         int rows = input.nextInt();
-        Double[][] test = new Double[][] {{1.0,7.0,8.0,9.0,4.0},{2.0,5.0,6.0,1.0,2.0},
-            {3.0,3.0,4.0,5.0,6.0},{4.0,7.0,8.0,9.0,0.0},
-                {1.0,2.0,3.0,4.0,5.0}
-        };
-        Matrix m1 = new Matrix(/*askMatrix(rows,rows)*/test);
+        Matrix m1 = new Matrix(askMatrix(rows,rows));
         double det = m1.getDeterminant(m1); 
         m1.printMatrix();
         System.out.println("El determinante de la matriz es: "+det);

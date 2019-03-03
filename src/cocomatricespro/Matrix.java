@@ -221,11 +221,20 @@ public class Matrix
         return new Matrix();
     }
     
+    /**
+     * Función para que el usuario sepa si la matriz está vacía
+     * (por error o por elección)
+    */
     public boolean isVoid()
     {
         return rowCount==0;
     }
     
+    /***
+     * Función recursiva para obtener la determinante de una matriz
+     * @param _m Matriz a obtener determinante o SUBdeterminate
+     * @return  El valor de la determinante o SUBdeterminante
+     */
     public double getDeterminant(Matrix _m)
     {
         if(_m.rowCount==1 && _m.rowCount==_m.columnCount)
