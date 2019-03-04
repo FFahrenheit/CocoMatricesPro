@@ -122,10 +122,15 @@ public class Matrix
             System.out.print("|  ");
             for(int j=0; j<columnCount; j++)
             {
-                System.out.print(matrix[i][j]+"  ");
+                if(matrix[i][j]==-0.0)
+                {
+                    matrix[i][j]=0.0;
+                }
+                System.out.print(String.format( "%.4f", matrix[i][j])+"  ");
             }
             System.out.println("|");
         }
+        System.out.println("");
     }
     
     /**
@@ -261,5 +266,115 @@ public class Matrix
             return acumulate;
         }
         return 0;
+    }
+    
+    /**
+     * Devuelve la inversa de la matriz actual.
+     * @return la inversa (de tamaño n*(n*2)
+     */
+    public Matrix getInverse()
+    {
+        if(this.columnCount!=this.rowCount)
+        {
+            return new Matrix();
+        }
+        Matrix ans = new Matrix(this.rowCount, this.columnCount*2); 
+        ans.convertToInverse(this);
+        for (int i = 0; i < ans.rowCount; i++) 
+        {
+            ans.divideRow(i,ans.matrix[i][i]);
+            ans.printMatrix();
+            for (int j = 0; j < i; j++)  //Hacer 0's lo de arriba
+            {
+                System.out.print("Hacer 0 lo de arriba: ");
+                ans.subtractRow(j,i,ans.matrix[j][i]);
+                ans.printMatrix();
+            }
+            for (int j = i+1; j < ans.rowCount; j++) //Hacer 0's lo de abajo
+            {
+
+                ans.subtractRow(j,i,ans.matrix[j][i]);
+                ans.printMatrix();
+            }
+            
+        }
+        return ans.getInversePart(); 
+    }
+    
+    /***
+     * Reconvierte una matriz de n*(n*2) a n*n
+     * que ha sido manipulada para obtener su inversa
+     * @return  Solo la parte inversa de la matriz
+     */
+    public Matrix getInversePart()
+    {
+        Matrix ans = new Matrix(this.rowCount, this.columnCount/2);
+        for (int i = 0; i < this.rowCount; i++) 
+        {
+            for (int j = 0; j <this.columnCount/2; j++) 
+            {
+                ans.matrix[i][j] = this.matrix[i][j+this.columnCount/2];
+            }
+        }
+        return ans;
+    }
+    
+    /**
+     * Convierte una matrix para ser trabajada con la inversa de
+     * una matrix original
+     * @param _m  La matriz original
+     */
+    public void convertToInverse(Matrix _m)
+    {
+        for (int i = 0; i < _m.rowCount; i++) 
+        {
+            for (int j = 0; j <_m.columnCount*2; j++) 
+            {
+                if(j>=_m.columnCount)
+                {
+                    if((j-_m.columnCount)==i)
+                    {
+                        this.matrix[i][j] =1.0;
+                    }
+                    else
+                    {
+                        this.matrix[i][j] = 0.0;
+                    }
+                }
+                else
+                {
+                    this.matrix[i][j] = _m.matrix[i][j];
+                }
+            }
+        }
+    }
+    
+    /**
+     * Divide una fila completa entre una constante
+     * @param _row La fila que será dividida
+     * @param divide La constante por la que será dividida 
+     */
+    public void divideRow(int _row, double divide)
+    {
+        System.out.println("Se divide la row "+_row+" entre "+divide);
+        for (int i = 0; i < this.columnCount; i++) 
+        {
+            this.matrix[_row][i] /= divide;
+        }
+    }
+    
+    /**
+     * Le resta a una fila lo que hay en otra por un multiplicador
+     * @param _minRow La fila que se verá afectada
+     * @param _susRow La fila con que se restará
+     * @param _mult  El multiplicador constante
+     */
+    public void subtractRow(int _minRow, int _susRow, double _mult)
+    {
+        System.out.println("Se le resta a la fila "+_minRow+" la fila "+_susRow+" "+_mult+" veces");
+        for (int i = 0; i < this.columnCount; i++) 
+        {
+            this.matrix[_minRow][i] -= this.matrix[_susRow][i]*_mult;
+        }
     }
 }

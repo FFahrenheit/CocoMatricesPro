@@ -45,6 +45,9 @@ public class CocoMatricesPro {
                 case 4:
                     transpuesta();
                     break;
+                case 5:
+                    inversa();
+                    break;
                 case 6:
                     determinante();
                     break;
@@ -172,5 +175,16 @@ public class CocoMatricesPro {
         double det = m1.getDeterminant(m1); 
         m1.printMatrix();
         System.out.println("El determinante de la matriz es: "+det);
+    }
+    
+    public static void inversa()
+    {
+        System.out.print("Ingrese las dimensiones de la matriz a obtener inversa\nFilas y columnas: ");
+        int rows = input.nextInt();
+        Matrix m1 = new Matrix(askMatrix(rows,rows));
+        Matrix m2 = m1.getInverse();
+        m1.printMatrix();
+        System.out.println("        Inversa=");
+        m2.printMatrix();
     }
 }
