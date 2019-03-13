@@ -206,7 +206,7 @@ public class Matrix
      */
     public Matrix dotProduct(Matrix m1, Matrix m2)
     {
-        if(m1.rowCount==m2.columnCount)
+        if(m2.rowCount==m1.columnCount)
         {
             Matrix ans = new Matrix(m1.rowCount, m2.columnCount);
             for(int i=0; i<m1.rowCount;i++)
@@ -282,6 +282,11 @@ public class Matrix
         ans.convertToInverse(this);
         for (int i = 0; i < ans.rowCount; i++) 
         {
+            if(ans.matrix[i][i]==0)
+            {
+                System.out.println("No hay inversa");
+                return new Matrix();
+            }
             ans.divideRow(i,ans.matrix[i][i]);
             ans.printMatrix();
             for (int j = 0; j < i; j++)  //Hacer 0's lo de arriba

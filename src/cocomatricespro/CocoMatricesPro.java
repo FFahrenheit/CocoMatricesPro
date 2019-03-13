@@ -94,7 +94,7 @@ public class CocoMatricesPro {
         Matrix matrix3 = new Matrix();
         System.out.println("        =");
         matrix3 = matrix3.add(matrix1,matrix2);
-        if(matrix3.isVoid())
+        if(!!!matrix3.isVoid())
         {
             matrix3.printMatrix();
         }
